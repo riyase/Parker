@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.keepqueue.sparepark.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_owner"
+        android:name="com.keepqueue.sparepark.ui.owner.OwnerFragment"
+        android:label="@string/menu_owner"
+        tools:layout="@layout/fragment_owner" />
+
+    <fragment
+        android:id="@+id/nav_bookings"
+        android:name="com.keepqueue.sparepark.ui.bookings.BookingsFragment"
+        android:label="@string/menu_bookings"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/maps"
+        android:name="com.keepqueue.sparepark.ui.home.MapsFragment"
+        android:label="Maps"
+        tools:layout="@layout/fragment_maps" />
+</navigation>
