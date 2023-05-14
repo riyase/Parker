@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.keepqueue.sparepark.data.MyPreferences
+import com.keepqueue.sparepark.data.Prefs
+import com.keepqueue.sparepark.data.Util.isValidEmail
+import com.keepqueue.sparepark.data.Util.isValidPassword
+import com.keepqueue.sparepark.data.Util.isValidPhone
 import com.keepqueue.sparepark.databinding.ActivityRegisterBinding
 
 class RegisterActivity: AppCompatActivity() {
@@ -29,6 +32,12 @@ class RegisterActivity: AppCompatActivity() {
                 Toast.makeText(this, "Enter Phone!", Toast.LENGTH_SHORT).show()
             } else if (binding.etPassword.text.toString().isEmpty()) {
                 Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show()
+            } else if (!binding.etEmail.text.isValidEmail()) {
+                Toast.makeText(this, "Enter a valid Email!", Toast.LENGTH_SHORT).show()
+            } else if (binding.etPhone.text.isValidPhone()) {
+                Toast.makeText(this, "Phone number should be at least 11 numbers!", Toast.LENGTH_SHORT).show()
+            } else if (binding.etPassword.text.isValidPassword()) {
+                Toast.makeText(this, "Password should be at least 6 characters!", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.register(binding.etUsername.text.toString(),
                     binding.etEmail.text.toString(),
@@ -47,7 +56,7 @@ class RegisterActivity: AppCompatActivity() {
         viewModel.registerResult.observe(this) {result ->
             when(result) {
                 is com.keepqueue.sparepark.data.response.Result.Success -> {
-                    MyPreferences.setLoggedIn(this, true, result.data.userId, result.data.userName)
+                    Prefs.setLoggedIn(this, true, result.data.userId, result.data.userName)
                     finish()
                 }
                 is com.keepqueue.sparepark.data.response.Result.Loading -> {

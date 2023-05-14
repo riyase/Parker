@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepqueue.sparepark.data.SpareParkApi
+import com.keepqueue.sparepark.data.ParkingApi
 import com.keepqueue.sparepark.data.model.Booking
 import com.keepqueue.sparepark.data.response.Result
 import kotlinx.coroutines.Job
@@ -26,7 +26,7 @@ class BookingsViewModel : ViewModel() {
         getBookingsJob?.cancel()
         getBookingsJob = viewModelScope.launch {
             _getBookingsResult.value = try {
-                val response = SpareParkApi.retrofitService.getMyBookings(userId)
+                val response = ParkingApi.retrofitService.getMyBookings(userId)
                 if (response.status) {
                     Result.Success(response.bookings)
                 } else {
@@ -50,7 +50,7 @@ class BookingsViewModel : ViewModel() {
         cancelBookingsJob?.cancel()
         cancelBookingsJob = viewModelScope.launch {
             _cancelBookingResult.value = try {
-                val response = SpareParkApi.retrofitService.updateBookingStatus(bookingId, "cancelled")
+                val response = ParkingApi.retrofitService.updateBookingStatus(bookingId, "cancelled")
                 if (response.status) {
                     Result.Success(true)
                 } else {
@@ -74,7 +74,7 @@ class BookingsViewModel : ViewModel() {
         submitReviewJob?.cancel()
         submitReviewJob = viewModelScope.launch {
             _submitReviewResult.value = try {
-                val response = SpareParkApi.retrofitService.submitReview(bookingId, rating, review)
+                val response = ParkingApi.retrofitService.submitReview(bookingId, rating, review)
                 if (response.status) {
                     Result.Success(true)
                 } else {

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepqueue.sparepark.data.SpareParkApi
+import com.keepqueue.sparepark.data.ParkingApi
 import com.keepqueue.sparepark.data.model.Space
 import com.keepqueue.sparepark.data.response.Result
 import kotlinx.coroutines.Job
@@ -25,7 +25,7 @@ class HomeViewModel : ViewModel() {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             _searchResult.value = try {
-                val response = SpareParkApi.retrofitService.searchSpaces(location, timeStart, timeEnd)
+                val response = ParkingApi.retrofitService.searchSpaces(location, timeStart, timeEnd)
                 if (response.status) {
                     Result.Success(response.spaces)
                 } else {

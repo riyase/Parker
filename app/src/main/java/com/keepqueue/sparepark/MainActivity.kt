@@ -16,7 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.keepqueue.sparepark.data.MyPreferences
+import com.keepqueue.sparepark.data.Prefs
 import com.keepqueue.sparepark.data.response.Result
 import com.google.android.material.navigation.NavigationView
 import com.keepqueue.sparepark.ui.login.LoginActivity
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.logoutResult.observe(this) { result ->
             when(result) {
                 is Result.Success -> {
-                    MyPreferences.setLoggedIn(this@MainActivity, false, -1, "")
+                    Prefs.setLoggedIn(this@MainActivity, false, -1, "")
                     loading.dismiss()
                     setDrawerMenuVisibility(binding.navView)
                 }
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setDrawerMenuVisibility(navView: NavigationView) {
-        val isLoggedIn = MyPreferences.isLoggedIn(this)
+        val isLoggedIn = Prefs.isLoggedIn(this)
         if (isLoggedIn) {
             binding.appBarMain.contentMain.bnvHome.visibility = View.VISIBLE
             navView.menu.findItem(R.id.nav_login).isVisible = false

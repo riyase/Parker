@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepqueue.sparepark.data.SpareParkApi
+import com.keepqueue.sparepark.data.ParkingApi
 import com.keepqueue.sparepark.data.response.LoginResponse
 import com.keepqueue.sparepark.data.response.Result
 import kotlinx.coroutines.Job
@@ -26,7 +26,7 @@ class LoginViewModel: ViewModel() {
         loginJob?.cancel()
         loginJob = viewModelScope.launch {
             _loginResult.value = try {
-                val response = SpareParkApi.retrofitService.login(email, password)
+                val response = ParkingApi.retrofitService.login(email, password)
                 if (response.status) {
                     Result.Success(response)
                 } else {

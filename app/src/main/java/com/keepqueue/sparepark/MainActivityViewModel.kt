@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepqueue.sparepark.data.SpareParkApi
+import com.keepqueue.sparepark.data.ParkingApi
 import com.keepqueue.sparepark.data.response.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -28,7 +28,7 @@ class MainActivityViewModel: ViewModel() {
         logoutJob = viewModelScope.launch {
             delay(1000)
             _logoutResult.value = try {
-                val response = SpareParkApi.retrofitService.logout()
+                val response = ParkingApi.retrofitService.logout()
                 if (response.status) {
                     Result.Success(true)
                 } else {

@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.keepqueue.sparepark.R
-import com.keepqueue.sparepark.data.MyPreferences
+import com.keepqueue.sparepark.data.Prefs
 import com.keepqueue.sparepark.data.model.Space
 import com.keepqueue.sparepark.data.parcelable
 import com.keepqueue.sparepark.databinding.ActivityBookSpaceBinding
@@ -120,7 +120,7 @@ class BookSpaceActivity: AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.bBook.setOnClickListener {
-            if (!MyPreferences.isLoggedIn(this@BookSpaceActivity)) {
+            if (!Prefs.isLoggedIn(this@BookSpaceActivity)) {
                 Toast.makeText(this@BookSpaceActivity, "Please login to book a space!", Toast.LENGTH_SHORT).show()
             } else if (binding.etStartTime.text.isEmpty()) {
                 Toast.makeText(this@BookSpaceActivity, "Set start time!", Toast.LENGTH_SHORT).show()
@@ -128,7 +128,7 @@ class BookSpaceActivity: AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this@BookSpaceActivity, "Set end time!", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.bookSpace(
-                    MyPreferences.getUserId(this@BookSpaceActivity),
+                    Prefs.getUserId(this@BookSpaceActivity),
                     space.id,
                     binding.etStartTime.text.toString(),
                     binding.etEndTime.text.toString()

@@ -51,11 +51,11 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false"
-            android:label="MyLogin" />
+            android:label="Login" />
         <activity
             android:name=".ui.login.RegisterActivity"
             android:exported="false"
-            android:label="MyLogin" />
+            android:label="Register" />
         <activity
             android:name=".ui.home.BookSpaceActivity"
             android:exported="false"

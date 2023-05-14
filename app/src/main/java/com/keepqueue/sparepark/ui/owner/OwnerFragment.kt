@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.keepqueue.sparepark.data.MyPreferences
+import com.keepqueue.sparepark.data.Prefs
 import com.keepqueue.sparepark.data.model.Space
 import com.keepqueue.sparepark.data.response.Result
 import com.keepqueue.sparepark.databinding.FragmentOwnerBinding
@@ -54,32 +54,25 @@ class OwnerFragment : Fragment() {
             startActivity(intent)
         }
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getSpaces(MyPreferences.getUserId(requireActivity()))
+            viewModel.getSpaces(Prefs.getUserId(requireActivity()))
         }
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSpaces(MyPreferences.getUserId(requireActivity()))
-        viewModel.getSpacesResult.observe(viewLifecycleOwner) { result ->
+        viewModel.getSpaces(Prefs.getUserId(requireActivity()))
+        viewModel.getSpaces.observe(viewLifecycleOwner) { result ->
             when(result) {
                 is Result.Success -> {
                     homeAdapter.setSpaceList(result.data)
-                    binding.progressBar.visibility = View.INVISIBLE
-                    binding.swipeRefresh.isRefreshing = false
                 }
                 is Result.Error -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                    binding.swipeRefresh.isRefreshing = false
                     result.message?.let { message ->
                         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
                     }
                 }
-                else -> {
-                    binding.swipeRefresh.isRefreshing = true
-                    binding.progressBar.visibility = View.VISIBLE
-                }
+                else -> {}
             }
         }
     }

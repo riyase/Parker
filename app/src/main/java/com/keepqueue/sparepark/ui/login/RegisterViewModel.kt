@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepqueue.sparepark.data.SpareParkApi
+import com.keepqueue.sparepark.data.ParkingApi
 import com.keepqueue.sparepark.data.response.RegisterResponse
 import com.keepqueue.sparepark.data.response.Result
 import kotlinx.coroutines.Job
@@ -25,7 +25,7 @@ class RegisterViewModel: ViewModel() {
         registerJob?.cancel()
         registerJob = viewModelScope.launch {
             _registerResult.value = try {
-                val response = SpareParkApi.retrofitService.register(userName, email, phone, password)
+                val response = ParkingApi.retrofitService.register(userName, email, phone, password)
                 if (response.status) {
                     Result.Success(response)
                 } else {

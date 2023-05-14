@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepqueue.sparepark.data.SpareParkApi
+import com.keepqueue.sparepark.data.ParkingApi
 import com.keepqueue.sparepark.data.response.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ class AddSpaceViewModel: ViewModel() {
         addSpaceJob?.cancel()
         addSpaceJob = viewModelScope.launch {
             _addSpaceResult.value = try {
-                val response = SpareParkApi.retrofitService.addSpace(
+                val response = ParkingApi.retrofitService.addSpace(
                     userId, name, rate, "car", address,
                     postCode, latitude, longitude)
                 if (response.status) {

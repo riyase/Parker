@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepqueue.sparepark.data.SpareParkApi
+import com.keepqueue.sparepark.data.ParkingApi
 import com.keepqueue.sparepark.data.response.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class BookSpaceViewModel: ViewModel() {
         bookJob?.cancel()
         bookJob = viewModelScope.launch {
             _bookResult.value = try {
-                val response = SpareParkApi.retrofitService.bookSpace(userId, spaceId, timeStart, timeEnd)
+                val response = ParkingApi.retrofitService.bookSpace(userId, spaceId, timeStart, timeEnd)
                 if (response.status) {
                     Result.Success(true)
                 } else {

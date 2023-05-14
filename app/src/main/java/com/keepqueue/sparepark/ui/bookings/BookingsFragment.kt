@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keepqueue.sparepark.R
 
-import com.keepqueue.sparepark.data.MyPreferences
+import com.keepqueue.sparepark.data.Prefs
 import com.keepqueue.sparepark.data.model.Booking
 import com.keepqueue.sparepark.data.response.Result
 import com.keepqueue.sparepark.databinding.FragmentBookingsBinding
@@ -92,14 +92,14 @@ class BookingsFragment : Fragment() {
         binding.rvBookings.layoutManager = LinearLayoutManager(activity)
 
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getMyBookings(MyPreferences.getUserId(requireActivity()))
+            viewModel.getMyBookings(Prefs.getUserId(requireActivity()))
         }
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMyBookings(MyPreferences.getUserId(requireActivity()))
+        viewModel.getMyBookings(Prefs.getUserId(requireActivity()))
         viewModel.getBookingsResult.observe(viewLifecycleOwner) { result ->
             when(result) {
                 is Result.Success -> {
@@ -116,6 +116,9 @@ class BookingsFragment : Fragment() {
                     binding.swipeRefresh.isRefreshing = true
                 }
             }
+        }
+        viewModel.submitReviewResult.observe(viewLifecycleOwner) {
+
         }
     }
 

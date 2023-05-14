@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.keepqueue.sparepark.data.MyPreferences
+import com.keepqueue.sparepark.data.Prefs
 import com.keepqueue.sparepark.data.model.Space
 import com.keepqueue.sparepark.data.parcelable
 import com.keepqueue.sparepark.databinding.ActivityAddSpaceBinding
@@ -62,7 +62,7 @@ class AddSpaceActivity: AppCompatActivity() {
                 Toast.makeText(this@AddSpaceActivity, "Set Space location!", Toast.LENGTH_SHORT).show()
             } */else {
                 viewModel.addSpace(
-                    MyPreferences.getUserId(this@AddSpaceActivity),
+                    Prefs.getUserId(this@AddSpaceActivity),
                     binding.etName.text.toString(),
                     binding.etRate.text.toString().toDouble(),
                     binding.etAddress.text.toString(),

@@ -63,8 +63,8 @@ class SpaceDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         //R.layout.
         space = intent.parcelable(SPACE)!!
-        val mapFragment = supportFragmentManager
 
+        val mapFragment = supportFragmentManager
             .findFragmentById(R.id.googleMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
